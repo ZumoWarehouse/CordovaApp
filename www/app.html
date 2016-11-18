@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <title>Zumo Warehouse</title>
+    </head>
+    <body>
+        <div class="container">
+
+            <div id="pageLoading" class="text-center">
+                <img src="img/logo.png">
+                <h1>Zumo Warehouse</h1>
+                <h3>Loading...</h3>
+            </div>
+
+            <!--<div id="pageLogin" class="hidden text-center">-->
+                <!--<img src="img/logo.png">-->
+                <!--<h1>Zumo Warehouse</h1>-->
+                <!--<h3>Login with</h3>-->
+                <!--<div class="row">-->
+                    <!--<a href="#" onclick="app.login('facebook')" class="col-xs-5">-->
+                        <!--<img src="img/facebook.png" class="img-responsive">-->
+                    <!--</a>-->
+                    <!--<span class="col-xs-2">or</span>-->
+                    <!--<a href="#" onclick="app.login('twitter')" class="col-xs-5">-->
+                        <!--<img src="img/twitter.png" class="img-responsive">-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div id="pageBoxes" class="hidden">
+                <h3>List of Boxes</h3>
+                <div class="row">
+                    <button class="col-xs-6 btn btn-default" onclick="app.showListOfBoxes()"><i class="glyphicon glyphicon-refresh"></i> Refresh</button>
+                    <button class="col-xs-6 btn btn-primary" onclick="app.showBoxAdd()"><i class="glyphicon glyphicon-plus"></i> Add box</button>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7">Box name</div>
+                    <div class="col-xs-2">Items count</div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                </div>
+                <div id="listBoxes" class="row">
+                </div>
+            </div>
+
+            <div id="pageBox" class="hidden">
+                <h3>Box</h3>
+                <input type="hidden" id="hidBoxId">
+                <div class="form-group">
+                    <label for="tbBoxName">Name</label>
+                    <input type="text" class="form-control" id="tbBoxName" placeholder="Name">
+                </div>
+                <div class="row">
+                    <button onclick="app.saveBox()" class="col-xs-6 btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
+                    <button onclick="app.showListOfBoxes()" class="col-xs-6 btn btn-default"><i class="glyphicon glyphicon-ban-circle"></i> Cancel</button>
+                </div>
+            </div>
+
+            <div id="pageItems" class="hidden">
+                <h3>Items</h3>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Box</label>
+                        <div class="col-xs-10">
+                            <select id="ddlBoxes" class="form-control" oninput="app.onCurrentBoxChanged()"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="col-xs-4 btn btn-default" onclick="app.showListOfBoxes()"><i class="glyphicon glyphicon-inbox"></i> Boxes</button>
+                    <button class="col-xs-4 btn btn-default" onclick="app.showListOfItems()"><i class="glyphicon glyphicon-refresh"></i> Refresh</button>
+                    <button class="col-xs-4 btn btn-primary" onclick="app.showItemAdd()"><i class="glyphicon glyphicon-plus"></i> Add item</button>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10">Item name</div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                </div>
+                <div id="listItems" class="row">
+                </div>
+            </div>
+
+            <div id="pageItem" class="hidden">
+                <h3>Item</h3>
+                <input type="hidden" id="hidItemId">
+                <div class="form-group">
+                    <label for="ddlItemBox">Box</label>
+                    <select id="ddlItemBox" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label for="tbItemName">Name</label>
+                    <input type="text" class="form-control" id="tbItemName" placeholder="Name">
+                </div>
+                <div class="row">
+                    <button onclick="app.saveItem()" class="col-xs-6 btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
+                    <button onclick="app.showListOfItems()" class="col-xs-6 btn btn-default"><i class="glyphicon glyphicon-ban-circle"></i> Cancel</button>
+                </div>
+            </div>
+
+            <div id="pageModal" class="hidden">
+                <p id="modalMessage"></p>
+            </div>
+        </div>
+
+
+        <script src="cordova.js"></script>
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
