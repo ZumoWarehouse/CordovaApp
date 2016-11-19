@@ -7,6 +7,15 @@ data.initializeClient = function () {
 };
 
 
+data.login = function (provider) {
+    return data.client.login(provider);
+};
+
+data.logout = function() {
+    return data.client.logout();
+};
+
+
 data.getBoxes = function() {
     return data.client.getTable('Box')
         .orderBy('name')

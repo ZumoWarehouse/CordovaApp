@@ -5,18 +5,24 @@ app.isDocumentReady = false;
 
 /** AUTHENTICATION **/
 
+app.showLoginPage = function() {
+    app.switchToPage('pageLogin');
+};
+
 app.login = function(provider) {
-    switch (provider) {
-        case 'facebook':
-            app.showAlert('facebook');
-            break;
-        case 'twitter':
-            app.showAlert('twitter');
-            break;
-        default:
-            app.showAlert('Unknown provider. Please try again.');
-            break;
-    }
+    data.login(provider).then(function(){
+        app.showListOfBoxes();
+    }, function(error){
+        app.showAlert(error);
+    });
+};
+
+app.logout = function() {
+    data.logout().then(function(){
+        app.showLoginPage();
+    }, function(error){
+        app.showAlert(error);
+    });
 };
 
 /** BOX **/
@@ -346,7 +352,7 @@ app.run = function () {
     }
 
     data.initializeClient();
-    app.showListOfBoxes();
+    app.showLoginPage();
 };
 
 document.addEventListener('deviceready', function() {

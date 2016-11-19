@@ -10,7 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com https://jstalks2016.azurewebsites.net https://api.twitter.com https://www.facebook.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: https://jstalks2016.azurewebsites.net content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -18,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
         <title>Zumo Warehouse</title>
     </head>
-    <body>
+    <body style="padding-top: 35px;">
         <div class="container">
 
             <div id="pageLoading" class="text-center">
@@ -27,23 +27,28 @@
                 <h3>Loading...</h3>
             </div>
 
-            <!--<div id="pageLogin" class="hidden text-center">-->
-                <!--<img src="img/logo.png">-->
-                <!--<h1>Zumo Warehouse</h1>-->
-                <!--<h3>Login with</h3>-->
-                <!--<div class="row">-->
-                    <!--<a href="#" onclick="app.login('facebook')" class="col-xs-5">-->
-                        <!--<img src="img/facebook.png" class="img-responsive">-->
-                    <!--</a>-->
-                    <!--<span class="col-xs-2">or</span>-->
-                    <!--<a href="#" onclick="app.login('twitter')" class="col-xs-5">-->
-                        <!--<img src="img/twitter.png" class="img-responsive">-->
-                    <!--</a>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div id="pageLogin" class="hidden text-center">
+                <img src="img/logo.png">
+                <h1>Zumo Warehouse</h1>
+                <h3>Login with</h3>
+                <div class="row">
+                    <a href="#" onclick="app.login('facebook')" class="col-xs-5">
+                        <img src="img/facebook.png" class="img-responsive">
+                    </a>
+                    <span class="col-xs-2">or</span>
+                    <a href="#" onclick="app.login('twitter')" class="col-xs-5">
+                        <img src="img/twitter.png" class="img-responsive">
+                    </a>
+                </div>
+            </div>
 
             <div id="pageBoxes" class="hidden">
-                <h3>List of Boxes</h3>
+                <div class="row">
+                    <h3 class="col-xs-11">List of Boxes</h3>
+                    <a href="#" class="col-xs-1 btn btn-danger" onclick="app.logout()">
+                        <i class="glyphicon glyphicon-off"></i>
+                    </a>
+                </div>
                 <div class="row">
                     <button class="col-xs-6 btn btn-default" onclick="app.showListOfBoxes()"><i class="glyphicon glyphicon-refresh"></i> Refresh</button>
                     <button class="col-xs-6 btn btn-primary" onclick="app.showBoxAdd()"><i class="glyphicon glyphicon-plus"></i> Add box</button>
@@ -60,7 +65,12 @@
             </div>
 
             <div id="pageBox" class="hidden">
-                <h3>Box</h3>
+                <div class="row">
+                    <h3 class="col-xs-11">Box</h3>
+                    <a href="#" class="col-xs-1 btn btn-danger" onclick="app.logout()">
+                        <i class="glyphicon glyphicon-off"></i>
+                    </a>
+                </div>
                 <input type="hidden" id="hidBoxId">
                 <div class="form-group">
                     <label for="tbBoxName">Name</label>
@@ -73,7 +83,12 @@
             </div>
 
             <div id="pageItems" class="hidden">
-                <h3>Items</h3>
+                <div class="row">
+                    <h3 class="col-xs-11">List of Items</h3>
+                    <a href="#" class="col-xs-1 btn btn-danger" onclick="app.logout()">
+                        <i class="glyphicon glyphicon-off"></i>
+                    </a>
+                </div>
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="col-xs-2 control-label">Box</label>
@@ -97,7 +112,12 @@
             </div>
 
             <div id="pageItem" class="hidden">
-                <h3>Item</h3>
+                <div class="row">
+                    <h3 class="col-xs-11">Item</h3>
+                    <a href="#" class="col-xs-1 btn btn-danger" onclick="app.logout()">
+                        <i class="glyphicon glyphicon-off"></i>
+                    </a>
+                </div>
                 <input type="hidden" id="hidItemId">
                 <div class="form-group">
                     <label for="ddlItemBox">Box</label>
@@ -114,7 +134,7 @@
             </div>
 
             <div id="pageModal" class="hidden">
-                <p id="modalMessage"></p>
+                <h4 id="modalMessage"></h4>
             </div>
         </div>
 
